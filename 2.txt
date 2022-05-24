@@ -1,0 +1,46 @@
+int Pir=10;
+int ledPin=13;
+int ldr=10;
+void setup() {
+  analogReference(DEFAULT);
+  Serial.begin(9600);
+  pinMode(ledPin,OUTPUT);
+  pinMode(Pir,INPUT);
+  Serial.begin(9600);
+  // put your setup code here, to run once:
+
+}
+void loop() {
+  int s=digitalRead (Pir);
+  Serial.println(s); 
+  Serial.println(analogRead(ldr));
+  delay(500);
+  int l=0;
+  if(analogRead(ldr)>300)
+  {
+    if(s==HIGH)
+    {
+      if(analogRead(ldr)>300&&analogRead(ldr)<400)
+      {
+        l=l+50;
+        digitalWrite(ledPin,l);
+      }
+      if(analogRead(ldr)>400&&analogRead(ldr)<500)
+      {
+        l=l+100;
+        digitalWrite(ledPin,l);
+      }
+      if(analogRead(ldr)>500&&analogRead(ldr)<600)
+      {
+        l=l+100;
+        digitalWrite(ledPin,l);
+      }
+    }
+    else
+    {
+      digitalWrite(ledPin,LOW);
+    }
+  }
+  // put your main code here, to run repeatedly:
+
+}

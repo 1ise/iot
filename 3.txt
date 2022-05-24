@@ -1,0 +1,48 @@
+const int trigpin=9;
+const int echopin=10;
+int ledpin1=13;
+int ledpin2=12;
+long duration;
+int distance;
+void setup() {
+  pinMode(ledpin1,OUTPUT);
+  pinMode(ledpin2,OUTPUT);
+  pinMode(trigpin,OUTPUT);
+  pinMode(echopin,INPUT);
+  Serial.begin(9600); 
+}
+void loop() {
+  digitalWrite(trigpin,LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigpin,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigpin,LOW);
+  duration=pulseIn(echopin,HIGH);
+  distance=duration*0.034/2;
+  Serial.print(distance);
+  Serial.println(distance);
+  if(distance>30)
+  {
+    Serial.println("completely empty");
+    digitalWrite(ledpin1,HIGH);
+    digitalWrite(ledpin2,LOW);
+    delay(2000);
+    digitalWrite(ledpin1,LOW);
+  }
+  if(distance>10 && distance<30)
+  {
+    Serial.println("half empty");
+    digitalWrite(ledpin1,HIGH);
+    digitalWrite(ledpin2,LOW);
+    delay(2000);
+    digitalWrite(ledpin1,LOW);
+  }
+  else
+  {
+    Serial.println("completely full");
+    digitalWrite(ledpin2,HIGH);
+    digitalWrite(ledpin1,LOW);
+    delay(2000);
+    digitalWrite(ledpin2,LOW); 
+  } 
+}

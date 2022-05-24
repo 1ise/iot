@@ -1,0 +1,32 @@
+int redLed = 12;
+int pot=A0;
+int val=0;
+int buzzer=8;
+// Your threshold value
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(redLed, OUTPUT);
+  pinMode(pot, INPUT);
+  pinMode(buzzer,OUTPUT);
+}
+
+void loop() {
+  val=analogRead(pot);
+  Serial.println(val);
+  delay(1000);
+  if(val>400)
+  {
+    digitalWrite(redLed,HIGH);
+    delay(1000);
+    digitalWrite(buzzer,HIGH);
+   
+  }
+  else
+  {
+    digitalWrite(redLed,LOW);
+    delay(1000);
+    digitalWrite(buzzer,LOW);
+    
+  }
+}
