@@ -1,0 +1,52 @@
+#include <SimpleDHT.h>
+int pinDHT11=2;
+SimpleDHT11 dht11 (pinDHT11);
+const int Sensor_pin=A1;
+void setup()
+{
+ Serial.begin(9600);
+}
+void loop()
+{
+ Serial.println("==============");
+ Serial.println("Simple DHT11");
+ byte temperature = 0;
+ byte humidity = 0;
+ int err=SimpleDHTErrSuccess;
+
+ if((err=dht11.read(&temperature,&humidity, NULL)!= SimpleDHTErrSuccess))
+ {
+ Serial.print("Read DHT11 failed, err = ");
+ Serial.print(SimpleDHTErrCode(err));
+ Serial.print(SimpleDHTErrDuration(err));
+ delay(1000);
+ return;
+ }
+ Serial.print("Sample OK ");
+ Serial.print((int) temperature);
+ Serial.print("*c");
+ Serial.print((int) humidity);
+ Serial.print ("H");
+ delay (1500);
+
+ float moisture_percentage;
+ int Sensor_analog;
+ Sensor_analog =analogRead (Sensor_pin);
+ moisture_percentage=(100-((Sensor_analog / 1023.00) * 100));
+ Serial.print("Moisture Percentage= ");
+ Serial.print(moisture_percentage);
+ Serial.print ("% \n\n");
+ delay(1000);
+ if (moisture_percentage > 45 && moisture_percentage <=48)
+ {
+ Serial.println("Low water Content");
+ }
+ if (moisture_percentage >=49 && moisture_percentage <=52)
+ {
+ Serial.println("Moderate Water Content");
+ }
+ if(moisture_percentage >=53)
+ {
+ Serial. println ("HIGH Water Content");
+ }
+}
