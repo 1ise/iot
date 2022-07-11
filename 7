@@ -1,0 +1,20 @@
+import urllib
+import httplib2
+import RPi.GPIO as GPIO
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(2, GPIO.IN)
+key=" "
+def infra():
+ while True:
+ ir=GPIO.input(2)
+ http=httplib2.Http()
+ url='https://api.thingspeak.com/update?api_key='+str(key)+'&field1='+str(ir)
+ try:
+ response,data=http.request(url, "GET")
+ print(ir)
+ print(response.status, response, reason)
+ except:
+ print("connection failed")
+ break
+infra()
