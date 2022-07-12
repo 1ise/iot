@@ -1,0 +1,30 @@
+import sys
+import urllib.request
+from time import sleep
+import RPi.GPIO as GPIO
+import time
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+IR = 7
+
+GPIO.setup(IR, GPIO.IN)
+
+
+# Enter Your API key here
+myAPI = 'D7QHPMYYIBBCRRV6' 
+# URL where we will send the data, Don't change it
+baseURL = 'https://api.thingspeak.com/update?api_key=%s' % myAPI
+
+while True:	
+		state=GPIO.input(IR)
+		# If Reading is valid
+		if isinstance(state, int):
+
+			print("state = ",state)
+			# Sending the data to thingspeak
+			conn = urllib.request.urlopen(baseURL + '&field1=%s' % (state))
+			print (conn.read())
+			# Closing the connection
+			conn.close()
+		else:
+			print( 'Error')
