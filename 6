@@ -2,12 +2,12 @@
 //sudo apt-get install python3-httplib2
 import httplib2
 import urllib
-key = "ZRG6DEKAHIXMD4H6"
+key = "YOE3U6HURQ6TU4QH"
 def thermometer():
     while True:
         temp = int(open('/sys/class/thermal/thermal_zone0/temp').read())
         http=httplib2.Http()
-        url="https://api.thingspeak.com/update?api_key=ZRG6DEKAHIXMD4H6&field1=0"
+        url="https://api.thingspeak.com/update?api_key=YOE3U6HURQ6TU4QH&field1="+str(temp)
         try:
             response,data = http.request(url,"GET")
             print(temp)
