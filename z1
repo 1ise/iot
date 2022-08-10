@@ -1,0 +1,19 @@
+from urllib import response
+import httplib2
+import urllib
+import random
+key="TZTICXFAOZE4PFRS"
+def infra():
+    while True:
+        temp=random.randint(0,1)
+        http=httplib2.Http()
+        url="https://api.thingspeak.com/update?api_key="+key+"&field1="+str(temp)
+        try:
+            response,data=http.request(url,"GET")
+            print(temp)
+            print(response.status,response.reason)
+        except:
+            print("Connection Failed")
+            break
+while True:
+    infra()
